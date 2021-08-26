@@ -1,8 +1,10 @@
-package com.leushinilya.loftcoin;
+package com.leushinilya.loftcoin.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.leushinilya.loftcoin.R;
 
 public class MainActivity extends AppCompatActivity {
 
