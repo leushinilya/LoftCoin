@@ -1,10 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.LoftCoin" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark</item>
+        <item name="colorPrimaryVariant">@color/dark_three</item>
         <item name="colorOnSecondary">@color/grey_blue</item>
         <item name="android:colorBackground">@color/dark</item>
         <item name="android:statusBarColor">@color/black</item>
+
+        <item name="bottomNavigationStyle">@style/AppThemeBottomNav</item>
+
     </style>
+
+    <style name="AppThemeBottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">?attr/colorPrimaryVariant</item>
+
+    </style>
+
+
 </resources>
