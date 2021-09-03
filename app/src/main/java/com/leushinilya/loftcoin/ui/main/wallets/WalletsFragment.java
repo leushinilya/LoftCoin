@@ -33,7 +33,30 @@ public class WalletsFragment extends Fragment {
         binding.cardsRecyclerView.setAdapter(new CardsAdapter());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         binding.cardsRecyclerView.setLayoutManager(layoutManager);
+
+        final int displayWidth = getActivity().getResources().getDisplayMetrics().widthPixels;
+        int cardWidth = (int)getResources().getDimension(R.dimen.cardWidth);
+        int padding = (displayWidth - cardWidth) / 2;
+        binding.cardsRecyclerView.setPadding(padding,0,padding,0);
+        binding.cardsRecyclerView.setClipToPadding(false);
+
         PagerSnapHelper helper = new PagerSnapHelper();
         helper.attachToRecyclerView(binding.cardsRecyclerView);
+
+        binding.cardsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int centerX = (recyclerView.getLeft() + recyclerView.getRight()) / 2;
+                for(int i = 0; i<recyclerView.getChildCount(); ++i){
+                    View child = recyclerView.getChildAt(i);
+                    int childCenterX = (child.getLeft() + child.getRight()) / 2;
+                    float childOffset = Math.abs(centerX - childCenterX) / (float)centerX;
+                    float factor = (float) Math.pow(0.85, childOffset);
+                    child.setScaleX(factor);
+                    child.setScaleY(factor);
+                }
+            }
+        });
     }
 }
