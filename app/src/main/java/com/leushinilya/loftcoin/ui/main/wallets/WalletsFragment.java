@@ -30,20 +30,20 @@ public class WalletsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.cardsRecyclerView.setAdapter(new CardsAdapter());
+        binding.cardsRecycler.setAdapter(new CardsAdapter());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
-        binding.cardsRecyclerView.setLayoutManager(layoutManager);
+        binding.cardsRecycler.setLayoutManager(layoutManager);
 
         final int displayWidth = getActivity().getResources().getDisplayMetrics().widthPixels;
         int cardWidth = (int)getResources().getDimension(R.dimen.cardWidth);
         int padding = (displayWidth - cardWidth) / 2;
-        binding.cardsRecyclerView.setPadding(padding,0,padding,0);
-        binding.cardsRecyclerView.setClipToPadding(false);
+        binding.cardsRecycler.setPadding(padding,0,padding,0);
+        binding.cardsRecycler.setClipToPadding(false);
 
         PagerSnapHelper helper = new PagerSnapHelper();
-        helper.attachToRecyclerView(binding.cardsRecyclerView);
+        helper.attachToRecyclerView(binding.cardsRecycler);
 
-        binding.cardsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.cardsRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);

@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="12dp"
-        tools:background="@color/grey_blue" />
+        tools:background="@drawable/ic_currency_example" />
 
     <TextView
         android:id="@+id/currency_label"

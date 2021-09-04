@@ -6,17 +6,9 @@
     tools:context=".ui.main.wallets.WalletsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cards_recycler_view"
+        android:id="@+id/cards_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WALLETS"
-        android:textColor="@color/white"
-        android:textSize="36sp"
-        android:layout_gravity="center" />
+        android:layout_gravity="top" />
 
 </FrameLayout>
