@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_rates" />
     <fragment
         android:id="@+id/converterFragment"
-        android:name="com.leushinilya.loftcoin.ui.main.ConverterFragment"
+        android:name="com.leushinilya.loftcoin.ui.main.converter.ConverterFragment"
         android:label="@string/converter"
         tools:layout="@layout/fragment_converter" />
 </navigation>

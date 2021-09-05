@@ -13,12 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.leushinilya.loftcoin.R;
+import com.leushinilya.loftcoin.data.Coin;
 import com.leushinilya.loftcoin.databinding.FragmentRatesBinding;
 import com.leushinilya.loftcoin.ui.main.wallets.CardsAdapter;
 
-public class RatesFragment extends Fragment {
+import java.util.List;
+
+public class RatesFragment extends Fragment implements RatesView{
+
+    RatesPresenter presenter;
 
     FragmentRatesBinding binding;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = new RatesPresenter();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,5 +44,22 @@ public class RatesFragment extends Fragment {
         binding.ratesRecycler.setAdapter(new RatesAdapter());
         binding.ratesRecycler.setLayoutManager
                 (new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        presenter.attach(this);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.detach(this);
+    }
+
+    @Override
+    public void showCoins(List<Coin> coinList) {
+        ((RatesAdapter)binding.ratesRecycler.getAdapter()).setData(coinList);
+    }
+
+    @Override
+    public void showError(String error) {
+
     }
 }
