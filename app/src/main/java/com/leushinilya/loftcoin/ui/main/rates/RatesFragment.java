@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.leushinilya.loftcoin.LoftCoin;
 import com.leushinilya.loftcoin.R;
 import com.leushinilya.loftcoin.data.Coin;
 import com.leushinilya.loftcoin.databinding.FragmentRatesBinding;
@@ -19,16 +23,15 @@ import com.leushinilya.loftcoin.ui.main.wallets.CardsAdapter;
 
 import java.util.List;
 
-public class RatesFragment extends Fragment implements RatesView{
-
-    RatesPresenter presenter;
+public class RatesFragment extends Fragment{
 
     FragmentRatesBinding binding;
+    RatesViewModel ratesViewModel;
+    RatesAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new RatesPresenter();
     }
 
     @Override
@@ -41,25 +44,22 @@ public class RatesFragment extends Fragment implements RatesView{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.ratesRecycler.setAdapter(new RatesAdapter());
+        adapter = new RatesAdapter();
+        binding.ratesRecycler.setAdapter(adapter);
         binding.ratesRecycler.setLayoutManager
                 (new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        presenter.attach(this);
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        presenter.detach(this);
-    }
+        ratesViewModel = new ViewModelProvider(this).get(RatesViewModel.class);
+        ratesViewModel.liveDataCoins.observe(getViewLifecycleOwner(), new Observer<List<Coin>>() {
+            @Override
+            public void onChanged(List<Coin> coins) {
+                adapter.setData(coins);
+            }
+        });
 
-    @Override
-    public void showCoins(List<Coin> coinList) {
-        ((RatesAdapter)binding.ratesRecycler.getAdapter()).setData(coinList);
-    }
-
-    @Override
-    public void showError(String error) {
+        ratesViewModel.getRemoteCoins(((LoftCoin)(getActivity().getApplication())).cmcAPI);
 
     }
+
+
 }

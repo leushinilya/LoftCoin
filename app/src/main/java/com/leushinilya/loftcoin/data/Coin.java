@@ -1,16 +1,17 @@
 package com.leushinilya.loftcoin.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Coin {
 
+    @SerializedName("id")
     private int id;
-    private String name;
-    private String symbol;
 
-    public Coin(int id, String name, String symbol) {
-        this.id = id;
-        this.name = name;
-        this.symbol = symbol;
-    }
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("symbol")
+    private String symbol;
 
     public int getId() {
         return id;
@@ -24,15 +25,4 @@ public class Coin {
         return symbol;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
 }

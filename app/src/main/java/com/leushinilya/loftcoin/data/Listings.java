@@ -1,12 +1,15 @@
 package com.leushinilya.loftcoin.data;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Listings {
 
-    List<Coin> data;
+    @SerializedName("data")
+    List<Coin> coins;
 
-    public Listings(List<Coin> data) {
-        this.data = data;
+    public List<Coin> getCoins() {
+        return coins;
     }
 }
