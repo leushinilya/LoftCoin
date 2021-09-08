@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         final ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        setSupportActionBar(binding.toolbar);
+
         NavController controller = Navigation.findNavController(this, R.id.main_host);
         NavigationUI.setupWithNavController(binding.toolbar, controller, new AppBarConfiguration
                 .Builder(binding.bottomNav.getMenu())

@@ -18,6 +18,7 @@ public class RatesViewModel extends ViewModel {
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     public MutableLiveData<List<Coin>> liveDataCoins = new MutableLiveData<>(Collections.emptyList());
+    public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(true);
     public MutableLiveData<String> message = new MutableLiveData<>("");
 
     @Override
@@ -33,6 +34,7 @@ public class RatesViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(remoteCoins -> {
                     liveDataCoins.postValue(remoteCoins.getCoins());
+                    isRefreshing.postValue(false);
                 }, throwable -> {
                     message.postValue(throwable.getLocalizedMessage());
                 }));

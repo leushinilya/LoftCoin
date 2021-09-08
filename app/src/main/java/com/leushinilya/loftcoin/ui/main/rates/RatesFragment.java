@@ -10,8 +10,13 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -44,6 +49,8 @@ public class RatesFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+
         adapter = new RatesAdapter();
         binding.ratesRecycler.setAdapter(adapter);
         binding.ratesRecycler.setLayoutManager
@@ -57,9 +64,23 @@ public class RatesFragment extends Fragment{
             }
         });
 
-        ratesViewModel.getRemoteCoins(((LoftCoin)(getActivity().getApplication())).cmcAPI);
+        ratesViewModel.isRefreshing.observe(getViewLifecycleOwner(),
+                isRefreshing -> binding.ratesRefresh.setRefreshing(isRefreshing));
+        binding.ratesRefresh.setOnRefreshListener(()
+                -> ratesViewModel.getRemoteCoins(((LoftCoin)(getActivity().getApplication())).cmcAPI));
 
+        ratesViewModel.getRemoteCoins(((LoftCoin)(getActivity().getApplication())).cmcAPI);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.rates_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Log.d(getClass().toString(), item.toString());
+        return super.onOptionsItemSelected(item);
+    }
 }
