@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/sort"
-        android:icon="@drawable/ic_sort"
+        android:icon="@drawable/ic_sort_down"
         android:title="@string/sort_menu_title"
         app:showAsAction="always"/>
 

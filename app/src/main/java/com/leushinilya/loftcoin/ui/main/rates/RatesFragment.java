@@ -59,6 +59,13 @@ public class RatesFragment extends Fragment {
             if(menu!=null && currency.equals("RUB")) menu.getItem(0).setIcon(R.drawable.ic_rub);
         });
 
+        ratesViewModel.getSorting().observe(getViewLifecycleOwner(), sorting ->{
+            if(menu!=null && sorting==-1) menu.getItem(1).setIcon(R.drawable.ic_sort_down);
+            if(menu!=null && sorting==1) menu.getItem(1).setIcon(R.drawable.ic_sort_up);
+            ratesViewModel.getRemoteCoins(((LoftCoin) (getActivity().getApplication()))
+                    .cmcAPI, ratesViewModel.currency.getValue());
+        });
+
         ratesViewModel.isRefreshing.observe(getViewLifecycleOwner(),
                 isRefreshing -> binding.ratesRefresh.setRefreshing(isRefreshing));
         binding.ratesRefresh.setOnRefreshListener(()
@@ -82,6 +89,9 @@ public class RatesFragment extends Fragment {
             CurrencyDialog dialog = new CurrencyDialog();
             dialog.show(getChildFragmentManager(), "");
             return true;
+        }
+        else if (item.getItemId() == R.id.sort){
+            ratesViewModel.getSorting().postValue(ratesViewModel.getSorting().getValue() * -1);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,47 +1,40 @@
-package com.leushinilya.loftcoin.ui.main.rates;
+package com.leushinilya.loftcoin.ui.main.rates
 
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
+import androidx.lifecycle.MutableLiveData
+import com.leushinilya.loftcoin.data.Coin
+import com.leushinilya.loftcoin.data.CmcAPI
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.android.schedulers.AndroidSchedulers
+import com.leushinilya.loftcoin.data.Listings
 
-import com.leushinilya.loftcoin.data.CmcAPI;
-import com.leushinilya.loftcoin.data.Coin;
+class RatesViewModel : ViewModel() {
+    var compositeDisposable = CompositeDisposable()
+    @JvmField
+    var liveDataCoins = MutableLiveData<List<Coin>>(emptyList())
+    @JvmField
+    var isRefreshing = MutableLiveData(true)
+    @JvmField
+    var currency = MutableLiveData("USD")
+    var message = MutableLiveData("")
+    var sorting = MutableLiveData(-1)
 
-import java.util.Collections;
-import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-public class RatesViewModel extends ViewModel {
-
-    CompositeDisposable compositeDisposable = new CompositeDisposable();
-    public MutableLiveData<List<Coin>> liveDataCoins = new MutableLiveData<>(Collections.emptyList());
-    public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(true);
-    public MutableLiveData<String> currency = new MutableLiveData<>("USD");
-    public MutableLiveData<String> message = new MutableLiveData<>("");
-
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        compositeDisposable.dispose();
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.dispose()
     }
 
-    public void getRemoteCoins(CmcAPI cmcAPI, String currency) {
-
-        Disposable disposable = (cmcAPI.listings(currency)
+    fun getRemoteCoins(cmcAPI: CmcAPI, currency: String?) {
+        val disposable = cmcAPI.listings(currency)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(remoteCoins -> {
-                    isRefreshing.postValue(true);
-                    liveDataCoins.postValue(remoteCoins.getCoins());
-                    isRefreshing.postValue(false);
-                }, throwable -> {
-                    message.postValue(throwable.getLocalizedMessage());
-                }));
-
-        compositeDisposable.add(disposable);
+                .subscribe({ remoteCoins: Listings ->
+                    isRefreshing.postValue(true)
+                    remoteCoins.coins.sortBy { sorting.value?.times(it.price) }
+                    liveDataCoins.postValue(remoteCoins.coins)
+                    isRefreshing.postValue(false)
+                }) { throwable: Throwable -> message.postValue(throwable.localizedMessage) }
+        compositeDisposable.add(disposable)
     }
-
 }
