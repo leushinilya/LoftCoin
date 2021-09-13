@@ -18,5 +18,8 @@
         <item name="itemTextColor">@color/bottom_nav_colors</item>
     </style>
 
+    <style name="CurrencyDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/dark_four</item>
+    </style>
 
 </resources>

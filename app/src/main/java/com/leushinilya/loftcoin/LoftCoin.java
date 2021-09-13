@@ -2,7 +2,6 @@ package com.leushinilya.loftcoin;
 
 import android.app.Application;
 import android.os.StrictMode;
-
 import com.leushinilya.loftcoin.data.CmcAPI;
 
 import okhttp3.OkHttpClient;
@@ -23,6 +22,7 @@ public class LoftCoin extends Application {
             StrictMode.enableDefaults();
         }
         configureRetrofit();
+
     }
 
     private void configureRetrofit() {

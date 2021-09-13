@@ -2,6 +2,7 @@ package com.leushinilya.loftcoin.data;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Iterator;
 import java.util.Map;
 
 public class Coin {
@@ -41,11 +42,17 @@ public class Coin {
     }
 
     public double getPrice(){
-        return quote.get("USD").price;
+        Iterator<Quote> iterator = quote.values().iterator();
+        if(iterator.hasNext())
+        return iterator.next().price;
+        else return 0;
     }
 
     public double getPercent(){
-        return quote.get("USD").percent;
+        Iterator<Quote> iterator = quote.values().iterator();
+        if(iterator.hasNext())
+            return iterator.next().percent;
+        else return 0;
     }
 
 }

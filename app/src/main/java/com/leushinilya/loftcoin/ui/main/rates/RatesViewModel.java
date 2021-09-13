@@ -19,6 +19,7 @@ public class RatesViewModel extends ViewModel {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     public MutableLiveData<List<Coin>> liveDataCoins = new MutableLiveData<>(Collections.emptyList());
     public MutableLiveData<Boolean> isRefreshing = new MutableLiveData<>(true);
+    public MutableLiveData<String> currency = new MutableLiveData<>("USD");
     public MutableLiveData<String> message = new MutableLiveData<>("");
 
     @Override
@@ -27,12 +28,13 @@ public class RatesViewModel extends ViewModel {
         compositeDisposable.dispose();
     }
 
-    public void getRemoteCoins(CmcAPI cmcAPI) {
+    public void getRemoteCoins(CmcAPI cmcAPI, String currency) {
 
-        Disposable disposable = (cmcAPI.listings("USD")
+        Disposable disposable = (cmcAPI.listings(currency)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(remoteCoins -> {
+                    isRefreshing.postValue(true);
                     liveDataCoins.postValue(remoteCoins.getCoins());
                     isRefreshing.postValue(false);
                 }, throwable -> {
