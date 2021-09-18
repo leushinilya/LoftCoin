@@ -49,11 +49,10 @@ public class RatesFragment extends Fragment {
                 (new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
         ratesViewModel = new ViewModelProvider(this).get(RatesViewModel.class);
-        ratesViewModel.liveDataCoins.observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
+        ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
 
-        ratesViewModel.currency.observe(getViewLifecycleOwner(), currency -> {
-            ratesViewModel.getRemoteCoins(((LoftCoin) (getActivity().getApplication()))
-                    .cmcAPI, ratesViewModel.currency.getValue());
+        ratesViewModel.getCurrency().observe(getViewLifecycleOwner(), currency -> {
+            ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
             if(menu!=null && currency.equals("USD")) menu.getItem(0).setIcon(R.drawable.ic_usd);
             if(menu!=null && currency.equals("EUR")) menu.getItem(0).setIcon(R.drawable.ic_eur);
             if(menu!=null && currency.equals("RUB")) menu.getItem(0).setIcon(R.drawable.ic_rub);
@@ -62,18 +61,15 @@ public class RatesFragment extends Fragment {
         ratesViewModel.getSorting().observe(getViewLifecycleOwner(), sorting ->{
             if(menu!=null && sorting==-1) menu.getItem(1).setIcon(R.drawable.ic_sort_down);
             if(menu!=null && sorting==1) menu.getItem(1).setIcon(R.drawable.ic_sort_up);
-            ratesViewModel.getRemoteCoins(((LoftCoin) (getActivity().getApplication()))
-                    .cmcAPI, ratesViewModel.currency.getValue());
+            ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
         });
 
-        ratesViewModel.isRefreshing.observe(getViewLifecycleOwner(),
+        ratesViewModel.isRefreshing().observe(getViewLifecycleOwner(),
                 isRefreshing -> binding.ratesRefresh.setRefreshing(isRefreshing));
         binding.ratesRefresh.setOnRefreshListener(()
-                -> ratesViewModel.getRemoteCoins(((LoftCoin) (getActivity().getApplication()))
-                .cmcAPI, ratesViewModel.currency.getValue()));
+                -> ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue()));
 
-        ratesViewModel.getRemoteCoins(((LoftCoin) (getActivity().getApplication()))
-                .cmcAPI, ratesViewModel.currency.getValue());
+        ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
     }
 
     @Override

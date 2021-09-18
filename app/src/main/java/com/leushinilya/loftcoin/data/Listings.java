@@ -7,9 +7,6 @@ import java.util.List;
 public class Listings {
 
     @SerializedName("data")
-    List<Coin> coins;
+    public List<Coin> coins;
 
-    public List<Coin> getCoins() {
-        return coins;
-    }
 }

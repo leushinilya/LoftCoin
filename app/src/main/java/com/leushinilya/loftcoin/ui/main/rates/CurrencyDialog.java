@@ -23,9 +23,9 @@ public class CurrencyDialog extends AppCompatDialogFragment {
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v.equals(binding.usd)) ratesViewModel.currency.postValue("USD");
-            else if(v.equals(binding.eur)) ratesViewModel.currency.postValue("EUR");
-            else if(v.equals(binding.rub)) ratesViewModel.currency.postValue("RUB");
+            if(v.equals(binding.usd)) ratesViewModel.getCurrency().postValue("USD");
+            else if(v.equals(binding.eur)) ratesViewModel.getCurrency().postValue("EUR");
+            else if(v.equals(binding.rub)) ratesViewModel.getCurrency().postValue("RUB");
             dismiss();
         }
     };
@@ -43,6 +43,5 @@ public class CurrencyDialog extends AppCompatDialogFragment {
                 .setTitle(R.string.choose_currency)
                 .create();
     }
-
 
 }
