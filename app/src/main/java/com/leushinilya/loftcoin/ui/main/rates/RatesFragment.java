@@ -25,6 +25,7 @@ public class RatesFragment extends Fragment {
     RatesViewModel ratesViewModel;
     RatesAdapter adapter;
     Menu menu;
+//    AppComponent component = ((LoftCoin)(getActivity().getApplication())).component;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class RatesFragment extends Fragment {
                 (new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
         ratesViewModel = new ViewModelProvider(this).get(RatesViewModel.class);
+        ratesViewModel.setApp((LoftCoin) getActivity().getApplication());
         ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
 
         ratesViewModel.getCurrency().observe(getViewLifecycleOwner(), currency -> {

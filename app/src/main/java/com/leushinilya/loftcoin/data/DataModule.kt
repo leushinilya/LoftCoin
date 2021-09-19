@@ -1,7 +1,6 @@
-package com.leushinilya.loftcoin.di.modules
+package com.leushinilya.loftcoin.data
 
 import com.leushinilya.loftcoin.BuildConfig
-import com.leushinilya.loftcoin.data.CmcAPI
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor

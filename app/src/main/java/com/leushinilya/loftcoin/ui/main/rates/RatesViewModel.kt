@@ -2,8 +2,8 @@ package com.leushinilya.loftcoin.ui.main.rates
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.leushinilya.loftcoin.data.CmcAPI
-import com.leushinilya.loftcoin.data.CmcRepo
+import com.leushinilya.loftcoin.DaggerAppComponent
+import com.leushinilya.loftcoin.LoftCoin
 import com.leushinilya.loftcoin.data.Coin
 import com.leushinilya.loftcoin.data.Listings
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,13 +12,14 @@ import io.reactivex.schedulers.Schedulers
 
 class RatesViewModel : ViewModel() {
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
+    lateinit var app: LoftCoin
     val liveDataCoins = MutableLiveData<List<Coin>>(emptyList())
     val isRefreshing = MutableLiveData(true)
     val currency = MutableLiveData("USD")
     val message = MutableLiveData("")
     val sorting = MutableLiveData(-1)
-    private val cmcRepo = CmcRepo()
+
 
     override fun onCleared() {
         super.onCleared()
@@ -26,8 +27,9 @@ class RatesViewModel : ViewModel() {
     }
 
     fun getRemoteCoins(currency: String?) {
+        println(DaggerAppComponent.builder().build())
 
-        val disposable = cmcRepo.cmcAPI.listings(currency)
+        val disposable = app.component.cmcAPI().listings(currency)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ remoteCoins: Listings ->
