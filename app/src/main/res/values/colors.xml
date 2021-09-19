@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    default-->
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-<!--    from zeplin-->
     <color name="dark">#191a2a</color>
     <color name="grey_blue">#66688f</color>
     <color name="blue_grey">#9c9eb9</color>
+    <color name="dark_three">#10101a</color>
+    <color name="dark_four">#2e2f47</color>
+    <color name="rate_up">#3DE77B</color>
+    <color name="rate_down">#FF4464</color>
+    <color name="rate_background">#212237</color>
+
 
 </resources>
