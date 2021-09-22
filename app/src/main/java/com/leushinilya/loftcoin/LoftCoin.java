@@ -14,8 +14,8 @@ public class LoftCoin extends Application {
         }
 
         component = DaggerAppComponent.builder()
+                .application(this)
                 .build();
-        System.out.println(component);
     }
 
 }

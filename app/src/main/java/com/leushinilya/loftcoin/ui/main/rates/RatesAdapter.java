@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leushinilya.loftcoin.BuildConfig;
 import com.leushinilya.loftcoin.R;
 import com.leushinilya.loftcoin.data.Coin;
+import com.leushinilya.loftcoin.data.remote.CmcCoin;
 import com.leushinilya.loftcoin.databinding.RateItemViewBinding;
 import com.squareup.picasso.Picasso;
 
@@ -87,6 +88,7 @@ public class RatesAdapter extends RecyclerView.Adapter<RatesAdapter.RatesViewHol
             Picasso.get()
                     .load(BuildConfig.IMG_ENDPOINT + coin.getId() + ".png")
                     .into(binding.rateImg);
+            System.out.println(BuildConfig.IMG_ENDPOINT + coin.getId() + ".png");
         }
     }
 }

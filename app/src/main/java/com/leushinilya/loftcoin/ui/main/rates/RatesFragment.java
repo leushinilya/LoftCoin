@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leushinilya.loftcoin.AppComponent;
 import com.leushinilya.loftcoin.LoftCoin;
 import com.leushinilya.loftcoin.R;
 import com.leushinilya.loftcoin.databinding.FragmentRatesBinding;
@@ -25,11 +26,12 @@ public class RatesFragment extends Fragment {
     RatesViewModel ratesViewModel;
     RatesAdapter adapter;
     Menu menu;
-//    AppComponent component = ((LoftCoin)(getActivity().getApplication())).component;
+    AppComponent component;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        component = ((LoftCoin)getActivity().getApplication()).component;
     }
 
     @Override
@@ -50,8 +52,14 @@ public class RatesFragment extends Fragment {
                 (new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
         ratesViewModel = new ViewModelProvider(this).get(RatesViewModel.class);
-        ratesViewModel.setApp((LoftCoin) getActivity().getApplication());
-        ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
+        component.inject(ratesViewModel);
+
+//        RatesViewModelFactory factory = component.ratesViewModelFactory();
+//        component.inject(factory);
+//        ratesViewModel = new ViewModelProvider(this, factory)
+//                        .get(RatesViewModel.class);
+
+        ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), cmcCoins -> adapter.setData(cmcCoins));
 
         ratesViewModel.getCurrency().observe(getViewLifecycleOwner(), currency -> {
             ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
