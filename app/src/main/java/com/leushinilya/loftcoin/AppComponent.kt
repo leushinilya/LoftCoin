@@ -2,7 +2,7 @@ package com.leushinilya.loftcoin
 
 import android.app.Application
 import android.content.Context
-import com.leushinilya.loftcoin.data.CoinsRepo
+import com.leushinilya.loftcoin.data.db.CoinsRepoDB
 import com.leushinilya.loftcoin.data.remote.CmcAPI
 import com.leushinilya.loftcoin.data.DataModule
 import com.leushinilya.loftcoin.data.db.LoftDatabase
@@ -29,7 +29,7 @@ abstract class AppComponent {
     abstract fun context(): Context
     abstract fun cmcAPI(): CmcAPI
     abstract fun database(): LoftDatabase
-    abstract fun coinsRepo(): CoinsRepo
+    abstract fun coinsRepo(): CoinsRepoDB
     abstract fun inject(ratesViewModel: RatesViewModel)
 
 

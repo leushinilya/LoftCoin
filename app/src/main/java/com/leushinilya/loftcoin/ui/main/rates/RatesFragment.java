@@ -1,6 +1,7 @@
 package com.leushinilya.loftcoin.ui.main.rates;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,27 +60,37 @@ public class RatesFragment extends Fragment {
 //        ratesViewModel = new ViewModelProvider(this, factory)
 //                        .get(RatesViewModel.class);
 
-        ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), cmcCoins -> adapter.setData(cmcCoins));
+        ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
 
+//        change currency
         ratesViewModel.getCurrency().observe(getViewLifecycleOwner(), currency -> {
-            ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
             if(menu!=null && currency.equals("USD")) menu.getItem(0).setIcon(R.drawable.ic_usd);
             if(menu!=null && currency.equals("EUR")) menu.getItem(0).setIcon(R.drawable.ic_eur);
             if(menu!=null && currency.equals("RUB")) menu.getItem(0).setIcon(R.drawable.ic_rub);
+            if(ratesViewModel.isViewCreated().getValue()){
+                ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true);
+            }
         });
 
+//        change sorting direction
         ratesViewModel.getSorting().observe(getViewLifecycleOwner(), sorting ->{
             if(menu!=null && sorting==-1) menu.getItem(1).setIcon(R.drawable.ic_sort_down);
             if(menu!=null && sorting==1) menu.getItem(1).setIcon(R.drawable.ic_sort_up);
-            ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
+            if(ratesViewModel.isViewCreated().getValue()) {
+                ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true);
+            }
         });
 
+//        manually refreshing
         ratesViewModel.isRefreshing().observe(getViewLifecycleOwner(),
                 isRefreshing -> binding.ratesRefresh.setRefreshing(isRefreshing));
         binding.ratesRefresh.setOnRefreshListener(()
-                -> ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue()));
+                -> ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true));
 
-        ratesViewModel.getRemoteCoins(ratesViewModel.getCurrency().getValue());
+//        first invocation
+        ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), false);
+        ratesViewModel.isViewCreated().postValue(true);
+        Log.d("LOGD", "onViewCreated");
     }
 
     @Override

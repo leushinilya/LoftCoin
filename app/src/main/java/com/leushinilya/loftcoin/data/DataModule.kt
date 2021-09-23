@@ -2,9 +2,9 @@ package com.leushinilya.loftcoin.data
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.leushinilya.loftcoin.BuildConfig
-import com.leushinilya.loftcoin.data.db.CoinsDAO
+import com.leushinilya.loftcoin.data.db.CoinsRepoDB
+
 import com.leushinilya.loftcoin.data.db.LoftDatabase
 import com.leushinilya.loftcoin.data.remote.CmcAPI
 import dagger.Module
@@ -64,10 +64,13 @@ abstract class DataModule {
 
         @Singleton
         @Provides
-        fun coinsRepo(db: LoftDatabase, executor: ExecutorService): CoinsRepo{
-            return CoinsRepo(db, executor)
+        fun coinsRepo(cmcAPI: CmcAPI, db: LoftDatabase, executor: ExecutorService): CoinsRepoDB {
+            return CoinsRepoDB(
+                cmcAPI,
+                db,
+                executor
+            )
         }
-
 
     }
 

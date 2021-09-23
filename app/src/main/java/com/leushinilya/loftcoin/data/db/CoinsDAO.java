@@ -15,7 +15,7 @@ import java.util.List;
 public interface CoinsDAO {
 
     @Query("SELECT * FROM RoomCoin")
-    LiveData<List<RoomCoin>> fetchAll();
+    List<RoomCoin> fetchAll();
 
     @WorkerThread
     @Query("SELECT COUNT(id) FROM RoomCoin")

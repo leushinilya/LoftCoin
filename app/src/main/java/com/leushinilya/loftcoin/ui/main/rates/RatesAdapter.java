@@ -88,7 +88,6 @@ public class RatesAdapter extends RecyclerView.Adapter<RatesAdapter.RatesViewHol
             Picasso.get()
                     .load(BuildConfig.IMG_ENDPOINT + coin.getId() + ".png")
                     .into(binding.rateImg);
-            System.out.println(BuildConfig.IMG_ENDPOINT + coin.getId() + ".png");
         }
     }
 }
