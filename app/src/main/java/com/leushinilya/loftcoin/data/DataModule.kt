@@ -3,10 +3,11 @@ package com.leushinilya.loftcoin.data
 import android.content.Context
 import androidx.room.Room
 import com.leushinilya.loftcoin.BuildConfig
-import com.leushinilya.loftcoin.data.db.CoinsRepoDB
+import com.leushinilya.loftcoin.data.rates.db.CoinsRepoDB
 
-import com.leushinilya.loftcoin.data.db.LoftDatabase
-import com.leushinilya.loftcoin.data.remote.CmcAPI
+import com.leushinilya.loftcoin.data.rates.db.LoftDatabase
+import com.leushinilya.loftcoin.data.rates.remote.CmcAPI
+import com.leushinilya.loftcoin.data.wallets.WalletsRepo
 import dagger.Module
 import dagger.Provides
 import okhttp3.Dispatcher
@@ -43,7 +44,7 @@ abstract class DataModule {
                     .baseUrl(BuildConfig.API_ENDPOINT)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
                     .build()
         }
 
@@ -64,12 +65,18 @@ abstract class DataModule {
 
         @Singleton
         @Provides
-        fun coinsRepo(cmcAPI: CmcAPI, db: LoftDatabase, executor: ExecutorService): CoinsRepoDB {
+        fun coinsRepoDB(cmcAPI: CmcAPI, db: LoftDatabase, executor: ExecutorService): CoinsRepoDB {
             return CoinsRepoDB(
                 cmcAPI,
                 db,
                 executor
             )
+        }
+
+        @Singleton
+        @Provides
+        fun walletsRepo(): WalletsRepo{
+            return WalletsRepo()
         }
 
     }

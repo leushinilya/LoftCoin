@@ -3,10 +3,10 @@ package com.leushinilya.loftcoin.ui.main.rates
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.leushinilya.loftcoin.data.Coin
-import com.leushinilya.loftcoin.data.db.CoinsRepoDB
-import com.leushinilya.loftcoin.data.remote.CmcAPI
-import com.leushinilya.loftcoin.data.remote.Listings
+import com.leushinilya.loftcoin.data.rates.Coin
+import com.leushinilya.loftcoin.data.rates.db.CoinsRepoDB
+import com.leushinilya.loftcoin.data.rates.remote.CmcAPI
+import com.leushinilya.loftcoin.data.rates.remote.Listings
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

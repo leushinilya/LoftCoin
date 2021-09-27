@@ -1,4 +1,4 @@
-package com.leushinilya.loftcoin.data.db;
+package com.leushinilya.loftcoin.data.rates.db;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
