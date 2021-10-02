@@ -8,15 +8,14 @@ import com.leushinilya.loftcoin.data.DataModule
 import com.leushinilya.loftcoin.data.rates.db.LoftDatabase
 import com.leushinilya.loftcoin.data.wallets.WalletsRepo
 import com.leushinilya.loftcoin.ui.main.rates.RatesViewModel
-import com.leushinilya.loftcoin.utils.RatesViewModelFactory
-import com.leushinilya.loftcoin.utils.ViewModelModule
+import com.leushinilya.loftcoin.ui.main.wallets.WalletsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(
-        modules = [AppModule::class, DataModule::class, ViewModelModule::class]
+        modules = [AppModule::class, DataModule::class]
 )
 abstract class AppComponent {
 
@@ -36,10 +35,6 @@ abstract class AppComponent {
 
 //    inject
     abstract fun inject(ratesViewModel: RatesViewModel)
-
-
-//    TODO: delete, useless
-    abstract fun ratesViewModelFactory(): RatesViewModelFactory
-    abstract fun inject(ratesViewModelFactory: RatesViewModelFactory)
+    abstract fun inject(walletsViewModel: WalletsViewModel)
 
 }

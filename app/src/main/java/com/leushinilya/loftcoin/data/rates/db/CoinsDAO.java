@@ -15,6 +15,9 @@ public interface CoinsDAO {
     @Query("SELECT * FROM RoomCoin")
     List<RoomCoin> fetchAll();
 
+    @Query("SELECT * FROM RoomCoin WHERE id=:id")
+    RoomCoin fetchOne(long id);
+
     @WorkerThread
     @Query("SELECT COUNT(id) FROM RoomCoin")
     int coinsCount();

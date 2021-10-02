@@ -1,16 +1,29 @@
 package com.leushinilya.loftcoin.ui.main.wallets;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leushinilya.loftcoin.BuildConfig;
+import com.leushinilya.loftcoin.data.wallets.Wallet;
 import com.leushinilya.loftcoin.databinding.CardViewBinding;
+import com.squareup.picasso.Picasso;
 
-public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHolder>{
+import java.util.Collections;
+import java.util.List;
+
+public class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.CardsViewHolder>{
 
     LayoutInflater inflater;
+    List<Wallet> wallets = Collections.emptyList();
+
+    public void setData(List<Wallet> wallets){
+        if(wallets != null) this.wallets = wallets;
+        notifyDataSetChanged();
+    }
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -26,12 +39,12 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
     @Override
     public void onBindViewHolder(@NonNull CardsViewHolder holder, int position) {
-
+        holder.bind(wallets.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return wallets.size();
     }
 
     static class CardsViewHolder extends RecyclerView.ViewHolder{
@@ -40,7 +53,15 @@ public class CardsAdapter extends RecyclerView.Adapter<CardsAdapter.CardsViewHol
 
         public CardsViewHolder(CardViewBinding binding) {
             super(binding.getRoot());
+
             this.binding = binding;
+        }
+
+        void bind(Wallet wallet){
+            binding.currencyValue.setText((int) wallet.getBalance());
+            Picasso.get()
+                    .load(BuildConfig.IMG_ENDPOINT + wallet.getCoin().getId() + ".png")
+                    .into(binding.currencyImg);
         }
     }
 }

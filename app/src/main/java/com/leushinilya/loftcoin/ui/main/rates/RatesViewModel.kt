@@ -32,7 +32,7 @@ class RatesViewModel : ViewModel() {
         compositeDisposable.dispose()
     }
 
-    fun getCoins(currency: String?, forceRefresh: Boolean) {
+    fun refreshCoins(currency: String?, forceRefresh: Boolean) {
         coinsRepo.executor.submit {
             if (forceRefresh || coinsRepo.db.coins().coinsCount() == 0) {
             val disposable = cmcAPI.listings(currency)
