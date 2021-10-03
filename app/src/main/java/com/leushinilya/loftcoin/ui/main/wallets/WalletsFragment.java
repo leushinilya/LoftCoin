@@ -47,7 +47,7 @@ public class WalletsFragment extends Fragment {
         component.inject(walletsViewModel);
 
         walletsViewModel.getWallets().observe(getViewLifecycleOwner(), wallets -> adapter.setData(wallets));
-//        walletsViewModel.refreshWallets();
+        walletsViewModel.refreshWallets();
 
         binding.cardsRecycler.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);

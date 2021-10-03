@@ -53,15 +53,15 @@ public class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.CardsVie
 
         public CardsViewHolder(CardViewBinding binding) {
             super(binding.getRoot());
-
             this.binding = binding;
         }
 
         void bind(Wallet wallet){
-            binding.currencyValue.setText((int) wallet.getBalance());
+            binding.currencyLabel.setText(wallet.getCoin().getSymbol());
             Picasso.get()
                     .load(BuildConfig.IMG_ENDPOINT + wallet.getCoin().getId() + ".png")
                     .into(binding.currencyImg);
+            binding.currencyValue.setText(wallet.getBalance() + "");
         }
     }
 }

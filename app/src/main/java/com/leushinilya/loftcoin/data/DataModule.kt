@@ -75,8 +75,8 @@ abstract class DataModule {
 
         @Singleton
         @Provides
-        fun walletsRepo(coinsRepoDB: CoinsRepoDB): WalletsRepo{
-            return WalletsRepo(coinsRepoDB)
+        fun walletsRepo(coinsRepoDB: CoinsRepoDB, executor: ExecutorService): WalletsRepo{
+            return WalletsRepo(coinsRepoDB, executor)
         }
 
     }
