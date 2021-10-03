@@ -20,4 +20,5 @@
         android:name="com.leushinilya.loftcoin.ui.main.converter.ConverterFragment"
         android:label="@string/converter"
         tools:layout="@layout/fragment_converter" />
+
 </navigation>

@@ -1,5 +1,6 @@
 package com.leushinilya.loftcoin.ui.main.rates;
 
+import android.graphics.Color;
 import android.graphics.Outline;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leushinilya.loftcoin.BuildConfig;
 import com.leushinilya.loftcoin.R;
 import com.leushinilya.loftcoin.data.Coin;
+import com.leushinilya.loftcoin.data.remote.CmcCoin;
 import com.leushinilya.loftcoin.databinding.RateItemViewBinding;
 import com.squareup.picasso.Picasso;
 
@@ -76,8 +78,13 @@ public class RatesAdapter extends RecyclerView.Adapter<RatesAdapter.RatesViewHol
 
         void bind(Coin coin) {
             binding.rateName.setText(coin.getSymbol());
-            binding.rateVolume.setText(coin.getPrice() + "");
-            binding.rateChange.setText(coin.getPercent() + "");
+            binding.rateVolume.setText(String.format("%.2f", coin.getPrice()));
+            if (coin.getPercent() > 0) {
+                binding.rateChange.setTextColor(Color.GREEN);
+            } else {
+                binding.rateChange.setTextColor(Color.RED);
+            }
+            binding.rateChange.setText(String.format("%.2f%%", coin.getPercent()));
             Picasso.get()
                     .load(BuildConfig.IMG_ENDPOINT + coin.getId() + ".png")
                     .into(binding.rateImg);

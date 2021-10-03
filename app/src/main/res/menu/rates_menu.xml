@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/currency"
-        android:icon="@drawable/ic_currency"
+        android:id="@+id/currencyDialog"
+        android:icon="@drawable/ic_usd"
         android:title="@string/currency_menu_title"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/sort"
-        android:icon="@drawable/ic_sort"
+        android:icon="@drawable/ic_sort_down"
         android:title="@string/sort_menu_title"
         app:showAsAction="always"/>
 

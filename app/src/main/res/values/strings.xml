@@ -16,4 +16,11 @@
     <string name="rates_app_bar">Общий анализ</string>
     <string name="currency_menu_title">Выбор валюты</string>
     <string name="sort_menu_title">Сортировать</string>
+
+    <string name="usd">Доллар | USD</string>
+    <string name="eur">Евро | EUR</string>
+    <string name="rub">Рубль | RUB</string>
+    <string name="choose_currency">Выберите валюту</string>
+
+
 </resources>
