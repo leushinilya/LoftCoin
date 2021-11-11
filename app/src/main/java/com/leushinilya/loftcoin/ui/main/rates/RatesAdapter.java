@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leushinilya.loftcoin.BuildConfig;
 import com.leushinilya.loftcoin.R;
-import com.leushinilya.loftcoin.data.Coin;
-import com.leushinilya.loftcoin.data.remote.CmcCoin;
+import com.leushinilya.loftcoin.data.rates.Coin;
 import com.leushinilya.loftcoin.databinding.RateItemViewBinding;
 import com.squareup.picasso.Picasso;
 

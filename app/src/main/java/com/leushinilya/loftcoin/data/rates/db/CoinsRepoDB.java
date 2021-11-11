@@ -1,9 +1,7 @@
-package com.leushinilya.loftcoin.data.db;
+package com.leushinilya.loftcoin.data.rates.db;
 
-import com.leushinilya.loftcoin.data.Coin;
-import com.leushinilya.loftcoin.data.db.LoftDatabase;
-import com.leushinilya.loftcoin.data.db.RoomCoin;
-import com.leushinilya.loftcoin.data.remote.CmcAPI;
+import com.leushinilya.loftcoin.data.rates.Coin;
+import com.leushinilya.loftcoin.data.rates.remote.CmcAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,6 @@ import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import io.reactivex.disposables.CompositeDisposable;
 
 @Singleton
 public class CoinsRepoDB {

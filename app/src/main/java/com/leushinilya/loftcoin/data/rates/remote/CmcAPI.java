@@ -1,6 +1,4 @@
-package com.leushinilya.loftcoin.data.remote;
-
-import com.leushinilya.loftcoin.data.remote.Listings;
+package com.leushinilya.loftcoin.data.rates.remote;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

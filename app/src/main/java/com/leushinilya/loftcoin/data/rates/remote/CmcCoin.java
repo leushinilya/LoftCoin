@@ -1,7 +1,7 @@
-package com.leushinilya.loftcoin.data.remote;
+package com.leushinilya.loftcoin.data.rates.remote;
 
 import com.google.gson.annotations.SerializedName;
-import com.leushinilya.loftcoin.data.Coin;
+import com.leushinilya.loftcoin.data.rates.Coin;
 
 import java.util.Iterator;
 import java.util.Map;

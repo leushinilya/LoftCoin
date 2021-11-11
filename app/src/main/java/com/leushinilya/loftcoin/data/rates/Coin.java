@@ -1,4 +1,4 @@
-package com.leushinilya.loftcoin.data;
+package com.leushinilya.loftcoin.data.rates;
 
 public interface Coin {
 

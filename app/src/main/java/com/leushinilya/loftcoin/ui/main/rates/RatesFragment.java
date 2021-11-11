@@ -55,11 +55,6 @@ public class RatesFragment extends Fragment {
         ratesViewModel = new ViewModelProvider(this).get(RatesViewModel.class);
         component.inject(ratesViewModel);
 
-//        RatesViewModelFactory factory = component.ratesViewModelFactory();
-//        component.inject(factory);
-//        ratesViewModel = new ViewModelProvider(this, factory)
-//                        .get(RatesViewModel.class);
-
         ratesViewModel.getLiveDataCoins().observe(getViewLifecycleOwner(), coins -> adapter.setData(coins));
 
 //        change currency
@@ -68,7 +63,7 @@ public class RatesFragment extends Fragment {
             if(menu!=null && currency.equals("EUR")) menu.getItem(0).setIcon(R.drawable.ic_eur);
             if(menu!=null && currency.equals("RUB")) menu.getItem(0).setIcon(R.drawable.ic_rub);
             if(ratesViewModel.isViewCreated().getValue()){
-                ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true);
+                ratesViewModel.refreshCoins(ratesViewModel.getCurrency().getValue(), true);
             }
         });
 
@@ -77,7 +72,7 @@ public class RatesFragment extends Fragment {
             if(menu!=null && sorting==-1) menu.getItem(1).setIcon(R.drawable.ic_sort_down);
             if(menu!=null && sorting==1) menu.getItem(1).setIcon(R.drawable.ic_sort_up);
             if(ratesViewModel.isViewCreated().getValue()) {
-                ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true);
+                ratesViewModel.refreshCoins(ratesViewModel.getCurrency().getValue(), true);
             }
         });
 
@@ -85,10 +80,10 @@ public class RatesFragment extends Fragment {
         ratesViewModel.isRefreshing().observe(getViewLifecycleOwner(),
                 isRefreshing -> binding.ratesRefresh.setRefreshing(isRefreshing));
         binding.ratesRefresh.setOnRefreshListener(()
-                -> ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), true));
+                -> ratesViewModel.refreshCoins(ratesViewModel.getCurrency().getValue(), true));
 
 //        first invocation
-        ratesViewModel.getCoins(ratesViewModel.getCurrency().getValue(), false);
+        ratesViewModel.refreshCoins(ratesViewModel.getCurrency().getValue(), false);
         ratesViewModel.isViewCreated().postValue(true);
         Log.d("LOGD", "onViewCreated");
     }

@@ -1,13 +1,11 @@
-package com.leushinilya.loftcoin.data.db;
+package com.leushinilya.loftcoin.data.rates.db;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 
 import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Room;
 
 import java.util.List;
 
@@ -16,6 +14,9 @@ public interface CoinsDAO {
 
     @Query("SELECT * FROM RoomCoin")
     List<RoomCoin> fetchAll();
+
+    @Query("SELECT * FROM RoomCoin WHERE id=:id")
+    RoomCoin fetchOne(long id);
 
     @WorkerThread
     @Query("SELECT COUNT(id) FROM RoomCoin")

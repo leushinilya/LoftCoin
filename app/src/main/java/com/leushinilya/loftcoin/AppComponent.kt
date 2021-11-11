@@ -2,20 +2,20 @@ package com.leushinilya.loftcoin
 
 import android.app.Application
 import android.content.Context
-import com.leushinilya.loftcoin.data.db.CoinsRepoDB
-import com.leushinilya.loftcoin.data.remote.CmcAPI
+import com.leushinilya.loftcoin.data.rates.db.CoinsRepoDB
+import com.leushinilya.loftcoin.data.rates.remote.CmcAPI
 import com.leushinilya.loftcoin.data.DataModule
-import com.leushinilya.loftcoin.data.db.LoftDatabase
+import com.leushinilya.loftcoin.data.rates.db.LoftDatabase
+import com.leushinilya.loftcoin.data.wallets.WalletsRepo
 import com.leushinilya.loftcoin.ui.main.rates.RatesViewModel
-import com.leushinilya.loftcoin.utils.RatesViewModelFactory
-import com.leushinilya.loftcoin.utils.ViewModelModule
+import com.leushinilya.loftcoin.ui.main.wallets.WalletsViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
 @Component(
-        modules = [AppModule::class, DataModule::class, ViewModelModule::class]
+        modules = [AppModule::class, DataModule::class]
 )
 abstract class AppComponent {
 
@@ -26,15 +26,15 @@ abstract class AppComponent {
         abstract fun build(): AppComponent
     }
 
+//    provide
     abstract fun context(): Context
     abstract fun cmcAPI(): CmcAPI
     abstract fun database(): LoftDatabase
-    abstract fun coinsRepo(): CoinsRepoDB
+    abstract fun coinsRepoDB(): CoinsRepoDB
+    abstract fun walletsRepo(): WalletsRepo
+
+//    inject
     abstract fun inject(ratesViewModel: RatesViewModel)
-
-
-//    TODO: delete, useless
-    abstract fun ratesViewModelFactory(): RatesViewModelFactory
-    abstract fun inject(ratesViewModelFactory: RatesViewModelFactory)
+    abstract fun inject(walletsViewModel: WalletsViewModel)
 
 }

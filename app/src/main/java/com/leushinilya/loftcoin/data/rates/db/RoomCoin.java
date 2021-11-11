@@ -1,9 +1,9 @@
-package com.leushinilya.loftcoin.data.db;
+package com.leushinilya.loftcoin.data.rates.db;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.leushinilya.loftcoin.data.Coin;
+import com.leushinilya.loftcoin.data.rates.Coin;
 
 @Entity
 public class RoomCoin implements Coin {
